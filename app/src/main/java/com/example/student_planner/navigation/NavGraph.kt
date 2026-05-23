@@ -7,7 +7,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.student_planner.ui_model.*
+import com.example.student_planner.ui_model.DetailsScreen
+import com.example.student_planner.ui_model.HomeScreen
+import com.example.student_planner.ui_model.ProfileScreen
+import com.example.student_planner.ui_model.RospisanieDetailScreen
+import com.example.student_planner.ui_model.RospisanieScreen
+import com.example.student_planner.ui_model.SettingsScreen
 
 @Composable
 fun StudentPlannerNavHost(
@@ -19,6 +24,7 @@ fun StudentPlannerNavHost(
         startDestination = Screen.Home.route,
         modifier = modifier
     ) {
+        // Главный экран (список дисциплин)
         composable(route = Screen.Home.route) {
             HomeScreen(
                 onSubjectClick = { subjectId ->
@@ -29,10 +35,14 @@ fun StudentPlannerNavHost(
                 },
                 onSettingsClick = {
                     navController.navigate(Screen.Settings.route)
+                },
+                onRospisanieClick = {
+                    navController.navigate(Screen.Rospisanie.route)
                 }
             )
         }
 
+        // Экран деталей дисциплины (с параметром subjectId)
         composable(
             route = Screen.Details.route,
             arguments = listOf(
@@ -50,7 +60,7 @@ fun StudentPlannerNavHost(
             )
         }
 
-
+        // Экран профиля
         composable(route = Screen.Profile.route) {
             ProfileScreen(
                 onNavigateBack = {
@@ -59,8 +69,39 @@ fun StudentPlannerNavHost(
             )
         }
 
+        // Экран настроек
         composable(route = Screen.Settings.route) {
             SettingsScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        // Экран расписания
+        composable(route = Screen.Rospisanie.route) {
+            RospisanieScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onLessonClick = { lessonId ->
+                    navController.navigate(Screen.RospisanieDetail.createRoute(lessonId))
+                }
+            )
+        }
+
+        // Экран деталей занятия (с параметром lessonId)
+        composable(
+            route = Screen.RospisanieDetail.route,
+            arguments = listOf(
+                navArgument("lessonId") {
+                    type = NavType.StringType
+                }
+            )
+        ) { backStackEntry ->
+            val lessonId = backStackEntry.arguments?.getString("lessonId") ?: ""
+            RospisanieDetailScreen(
+                lessonId = lessonId,
                 onNavigateBack = {
                     navController.popBackStack()
                 }

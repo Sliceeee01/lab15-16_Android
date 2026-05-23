@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-//Экран профиля студента
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
@@ -41,7 +41,7 @@ fun ProfileScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Карточка с аватаром и именем
+
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
@@ -73,7 +73,7 @@ fun ProfileScreen(
                     )
                 }
             }
-            // Информация о студенте
+
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -98,7 +98,7 @@ fun ProfileScreen(
                     )
                 }
             }
-            // Статистика
+
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(
                     modifier = Modifier.padding(16.dp)
@@ -131,7 +131,6 @@ fun ProfileScreen(
         }
     }
 }
-//Строка с иконкой, меткой и значением
 @Composable
 fun ProfileInfoRow(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
@@ -163,7 +162,6 @@ fun ProfileInfoRow(
         }
     }
 }
-//Элемент статистики
 @Composable
 fun StatisticItem(
     label: String,
